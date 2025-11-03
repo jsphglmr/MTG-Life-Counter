@@ -34,7 +34,7 @@ struct OnboardingView: View {
                     .padding()
                     
                     VStack(alignment: .center, spacing: 25) {
-                        NavigationLink(destination: SetupScreenView()) {
+                        NavigationLink(value: "setup") {
                             Text("Continue")
                                 .font(.title)
                                 .fontWeight(.bold)
@@ -49,6 +49,14 @@ struct OnboardingView: View {
                 }
             }
             .background(Color.black)
+            .navigationDestination(for: String.self) { value in
+                if value == "setup" {
+                    SetupScreenView()
+                }
+            }
+            .navigationDestination(for: Int.self) { playerCount in
+                GameView(playerCount: playerCount)
+            }
         }
     }
 }

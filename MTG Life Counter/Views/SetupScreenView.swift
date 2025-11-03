@@ -18,7 +18,7 @@ struct SetupScreenView: View {
                     .padding(.bottom, 50)
                 
                 VStack(alignment: .center, spacing: 20) {
-                    ForEach(2..<5) { playerCount in
+                    ForEach(1..<5) { playerCount in
                         NavigationLink(value: playerCount) {
                             VStack {
                                 // player count header

@@ -12,7 +12,7 @@ struct PlayerHealthView: View {
     
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
+        formatter.numberStyle = .none
         return formatter
     }()
     
@@ -23,47 +23,47 @@ struct PlayerHealthView: View {
     
     private var aliveView: some View {
         GeometryReader { geometry in
-        
-                    HStack {
-                        Button {
-                            player.health -= 1
-                        } label: {
-                            Rectangle()
-                                .fill(Color.clear)
-                                .overlay(
-                                    Image(systemName: "minus")
-                                        .font(.system(size: 40, weight: .bold))
-                                        .foregroundColor(.white)
-                                )
-                        }
-                        .contentShape(Rectangle())
-                        .buttonRepeatBehavior(.enabled)
-                        
-                        TextField("\(player.health)", value: $player.health, formatter: formatter)
-                            .multilineTextAlignment(.center)
-                            .font(.system(size: 45, weight: .black, design: .monospaced))
-                            .fontWeight(.ultraLight)
-                            .keyboardType(.numberPad)
-                            .frame(width: 100)
-                        
-                        Button {
-                            player.health += 1
-                        } label: {
-                            Rectangle()
-                                .fill(Color.clear)
-                                .overlay(
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 40, weight: .bold))
-                                        .foregroundColor(.white)
-                                )
-                        }
-                        .contentShape(Rectangle())
-                        .buttonRepeatBehavior(.enabled)
-                    }        
+            HStack {
+                Button {
+                    player.health -= 1
+                } label: {
+                    Rectangle()
+                        .fill(Color.clear)
+                        .overlay(
+                            Image(systemName: "minus")
+                                .font(.system(size: 40, weight: .bold))
+                                .foregroundColor(.white)
+                        )
+                }
+                .contentShape(Rectangle())
+                .buttonRepeatBehavior(.enabled)
+                
+                TextField("\(player.health)", value: $player.health, formatter: formatter)
+                    .multilineTextAlignment(.center)
+                    .font(.system(size: 45, weight: .black, design: .monospaced))
+                    .fontWeight(.ultraLight)
+                    .keyboardType(.numberPad)
+                    .frame(width: 120)
+                
+                Button {
+                    player.health += 1
+                } label: {
+                    Rectangle()
+                        .fill(Color.clear)
+                        .overlay(
+                            Image(systemName: "plus")
+                                .font(.system(size: 40, weight: .bold))
+                                .foregroundColor(.white)
+                        )
+                }
+                .contentShape(Rectangle())
+                .buttonRepeatBehavior(.enabled)
+            }
+//            .background(Color.red.opacity(0.5))
+
         }
-        
-        .background(Color.black)
-        .foregroundColor(.white)
+//        .frame(height: 200)
+        .foregroundStyle(.white)
     }
 }
 
