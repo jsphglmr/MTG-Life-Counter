@@ -10,9 +10,18 @@ import SwiftData
 
 @Model
 final class Player {
-    var timestamp: Date
+    var name: String
+    var health: Int = 40
+    var commanderDamage: Int = 0
+    var color: String
+    var isDead: Bool = false
     
-    init(timestamp: Date) {
-        self.timestamp = timestamp
+    init(name: String, color: String) {
+        self.name = name
+        self.color = color
+    }
+    
+    static func testPlayerData() -> Player {
+        return Player(name: "TEST NAME", color: "RED")
     }
 }

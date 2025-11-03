@@ -41,15 +41,12 @@ struct OnboardingView: View {
                         }
                     }
                     .padding()
-                    .frame(maxWidth: geometry.size.width - 40)
+                    .frame(maxWidth: geometry.size.width)
                     .padding()
                     .foregroundStyle(.white)
                     .background(LinearGradient(colors: [.white, .red, .red, .red, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .containerShape(.rect(cornerRadius: 24))
                 }
-                //            .frame(width: geometry.size.width)
-                //            .frame(minWidth: .infinity, minHeight: .infinity)
-                
             }
             .background(Color.black)
         }
@@ -59,12 +56,3 @@ struct OnboardingView: View {
 #Preview {
     OnboardingView()
 }
-
-
-
-//NavigationStack(path: $navigationPath) {
-//    SetupScreenView()
-//        .navigationDestination(for: Int.self) { playerCount in
-//            GameView(playerCount: playerCount)
-//    }
-//}

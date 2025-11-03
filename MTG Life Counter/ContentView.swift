@@ -14,12 +14,6 @@ struct ContentView: View {
     @State private var navigationPath = NavigationPath()
     
     var body: some View {
-//        NavigationStack(path: $navigationPath) {
-//            SetupScreenView()
-//                .navigationDestination(for: Int.self) { playerCount in
-//                    GameView(playerCount: playerCount)
-//            }
-//        }
         OnboardingView()
     }
 }
