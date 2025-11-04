@@ -8,38 +8,43 @@
 import SwiftUI
 
 struct SetupScreenView: View {
+    @Environment(Router.self) var router
+    
     var body: some View {
+        let columns = [
+            GridItem(.flexible(), spacing: 10),
+            GridItem(.flexible(), spacing: 10)
+        ]
+        
         GeometryReader { geometry in
             VStack {
+                Spacer()
                 Text("How many players?")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundStyle(.white)
-                    .padding(.bottom, 50)
-                
-                VStack(alignment: .center, spacing: 20) {
+                    .padding(.bottom, 25)
+                LazyVGrid(columns: columns, spacing: 25) {
                     ForEach(1..<5) { playerCount in
-                        NavigationLink(value: playerCount) {
+                        Button(action: { router.navigateToGameView(playerCount: playerCount) }) {
                             VStack {
                                 // player count header
                                 Text("\(playerCount)")
                                     .font(.system(size: 60, weight: .bold, design: .rounded))
-                                    .foregroundStyle(.black)
                                 
-                                // change this to player(s) if single player ever added
-                                Text("Players")
+                                Text(playerCount == 1 ? "Player" : "Players")
                                     .font(.caption)
-                                    .foregroundStyle(.black)
+                                    
                             }
-                            .frame(width: geometry.size.width, height: 120)
-                            .background(Color.white)
+                            .frame(width: (geometry.size.width / 2.2), height: (geometry.size.height / 4))
+                            .foregroundStyle(.white)
+                            .background(Color.random())
                             .containerShape(.rect(cornerRadius: 24))
                         }
                     }
                 }
                 Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.black)
         }
     }
@@ -47,4 +52,5 @@ struct SetupScreenView: View {
 
 #Preview {
     SetupScreenView()
+        .environment(Router())
 }

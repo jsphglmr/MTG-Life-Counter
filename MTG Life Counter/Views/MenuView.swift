@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MenuView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(Router.self) var router
     @State private var showingResetAlert = false
     
     var body: some View {
@@ -21,12 +22,12 @@ struct MenuView: View {
                 
                 VStack(spacing: 20) {
                     // reset button
-                    Button(action: {
+                    Button {
                         showingResetAlert = true
-                    }) {
+                    } label: {
                         HStack {
                             Image(systemName: "arrow.clockwise")
-                            Text("Reset Game")
+                            Text("End Game")
                         }
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -38,12 +39,12 @@ struct MenuView: View {
                     }
                     
                     // continue button
-                    Button(action: {
+                    Button {
                         dismiss()
-                    }) {
+                    } label: {
                         HStack {
                             Image(systemName: "play.fill")
-                            Text("Continue Game")
+                            Text("Return to Game")
                         }
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -61,52 +62,19 @@ struct MenuView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.black)
 //            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                    .foregroundColor(.white)
-                }
-            }
         }
-        .alert("Reset Game?", isPresented: $showingResetAlert) {
-            Button("Reset", role: .destructive) {
-                resetGame()
+        .alert("End Game?", isPresented: $showingResetAlert) {
+            Button("End", role: .destructive) {
+                router.popToRoot()
             }
             Button("Cancel", role: .cancel) { }
         } message: {
-            Text("This will end the current game and return to the main menu. All progress will be lost.")
-        }
-        .onAppear {
-            // Keep screen awake while menu is open
-            UIApplication.shared.isIdleTimerDisabled = true
-        }
-        .onDisappear {
-            // Re-enable auto-lock when leaving menu
-            UIApplication.shared.isIdleTimerDisabled = false
-        }
-    }
-    
-    private func resetGame() {
-        // Dismiss the menu first
-        dismiss()
-        
-        // Navigate back to setup screen
-        // This will be handled by the parent view
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            // Post notification or use environment to trigger reset
-            NotificationCenter.default.post(name: .resetGame, object: nil)
+            Text("This will end the current game and return to the main menu. Are you sure you want to end the game?")
         }
     }
 }
-
-// reset game extn
-extension Notification.Name {
-    static let resetGame = Notification.Name("resetGame")
-}
-
 
 #Preview {
     MenuView()
+        .environment(Router())
 }

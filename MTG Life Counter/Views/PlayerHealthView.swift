@@ -32,8 +32,7 @@ struct PlayerHealthView: View {
                         .overlay(
                             Image(systemName: "minus")
                                 .font(.system(size: 40, weight: .bold))
-                                .foregroundColor(.white)
-                        )
+                                .foregroundColor(.white))
                 }
                 .contentShape(Rectangle())
                 .buttonRepeatBehavior(.enabled)
@@ -53,8 +52,7 @@ struct PlayerHealthView: View {
                         .overlay(
                             Image(systemName: "plus")
                                 .font(.system(size: 40, weight: .bold))
-                                .foregroundColor(.white)
-                        )
+                                .foregroundColor(.white))
                 }
                 .contentShape(Rectangle())
                 .buttonRepeatBehavior(.enabled)
@@ -69,4 +67,5 @@ struct PlayerHealthView: View {
 
 #Preview {
     PlayerHealthView(player: Player.testPlayerData())
+        .preferredColorScheme(.dark)
 }

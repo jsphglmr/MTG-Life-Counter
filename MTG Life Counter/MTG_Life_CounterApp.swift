@@ -26,6 +26,7 @@ struct MTG_Life_CounterApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .withRouter()
         }
         .modelContainer(sharedModelContainer)
     }

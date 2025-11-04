@@ -9,13 +9,19 @@ import SwiftUI
 
 struct GameView: View {
     var playerCount: Int
+    @Environment(Router.self) var router
     
     var body: some View {
         GeometryReader { geometry in
             
             ZStack {
-                menuButton
-                    .frame(width: 75, height: 75)
+                if playerCount == 1 {
+                    menuButton
+                        .position(x: geometry.size.width - 50, y: 25)
+                } else {
+                    menuButton
+                        .frame(width: 75, height: 75)
+                }
                 ZStack {
                     switch playerCount {
                     case 1:
@@ -28,8 +34,6 @@ struct GameView: View {
                         fourPlayerLayout(geometry: geometry)
                     default:
                         EmptyView()
-                        
-                        
                     }
                 }
             }
@@ -115,8 +119,8 @@ struct GameView: View {
     
     // MARK: - Menu Button
     private var menuButton: some View {
-        NavigationLink {
-            MenuView()
+        Button {
+            router.navigateToMenu()
         } label: {
             ZStack {
                 Circle()
@@ -137,5 +141,6 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView(playerCount: 4)
+    GameView(playerCount: 1)
+        .environment(Router())
 }

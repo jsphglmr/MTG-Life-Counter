@@ -11,7 +11,6 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var players: [Player]
-    @State private var navigationPath = NavigationPath()
     
     var body: some View {
         OnboardingView()
