@@ -10,10 +10,18 @@ import SwiftUI
 struct MenuView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(Router.self) var router
+    
+    // viewmodels
     @State private var diceViewModel = DiceViewModel()
+    @State private var deckListViewModel = DeckListViewModel()
+    
+    // presentation checks
     @State private var showingResetAlert = false
     @State private var showingDiceMenu = false
+    @State private var showingDeckListMenu = false
+    
     @State private var diceResults: [String?] = [nil, nil, nil, nil]
+    @State private var deckResults: [Deck] = []
     @State private var selectedDiceIndex: Int? = nil
     let diceMenuItems: [String] = ["Coin Flip", "D4", "D6", "D20"]
     let columns = [
@@ -33,6 +41,7 @@ struct MenuView: View {
                     VStack(spacing: 20) {
                         // roll dice
                         rollDiceButton(geometry: geometry)
+                        deckListButton(geometry: geometry)
                         Spacer()
                         
                         // return button
@@ -161,12 +170,60 @@ struct MenuView: View {
             default:
                 break
             }
-            
-            // Reset selectedDiceIndex after processing
             selectedDiceIndex = nil
         }
         .onDisappear {
             resetDice()
+        }
+    }
+    
+    private func deckListButton(geometry: GeometryProxy) -> some View {
+        Button {
+            showingDeckListMenu = true
+        } label: {
+            HStack {
+                Image(systemName: "menucard.fill")
+                Text("Deck List")
+            }
+            .font(.title2)
+            .fontWeight(.semibold)
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.white)
+            .cornerRadius(12)
+            .sheet(isPresented: $showingDeckListMenu) {
+                deckList(geometry: geometry)
+            }
+        }
+    }
+    
+    private func deckList(geometry: GeometryProxy) -> some View {
+        NavigationStack {
+            List(deckListViewModel.deckList) { deck in
+                HStack {
+                    Text(deck.commander)
+                        .font(.headline)
+                    Spacer()
+                    Text("Bracket: \(deck.bracket)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .navigationTitle("Deck List")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            Spacer()
+            HStack {
+                Image(systemName: "link.circle.fill")
+                Link("Moxfield", destination: URL(string: "https://moxfield.com/users/jjjjjjjjjjjjjjjjjoj")!)
+            }
+        }
+        .preferredColorScheme(.dark)
+        .presentationDetents([.height(500), .medium, .large])
+        .presentationDragIndicator(.automatic)
+        .task {
+            await deckListViewModel.getDecks()
         }
     }
 }

@@ -17,7 +17,6 @@ struct DiceRoll: Identifiable, Codable {
         case minVal = "min_val"
         case maxVal = "max_val"
         case result
-        // id is not included since the service doesn't return it
     }
     
     init(id: Int = 0, minVal: Int, maxVal: Int, result: Int) {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SetupScreenView: View {
     @Environment(Router.self) var router
+    @State private var connectionViewModel = ConnectionViewModel()
     
     var body: some View {
         let columns = [
@@ -18,6 +19,15 @@ struct SetupScreenView: View {
         
         GeometryReader { geometry in
             VStack {
+                if connectionViewModel.isConnected {
+                    Text("Warning: No internet connection!")
+                        .foregroundStyle(Color.yellow)
+                        .font(.title2)
+                } else {
+                    Text("")
+                        .font(.headline)
+                        .padding(.top, 10)
+                }
                 Spacer()
                 Text("How many players?")
                     .font(.largeTitle)
@@ -38,7 +48,7 @@ struct SetupScreenView: View {
                             }
                             .frame(width: (geometry.size.width / 2.2), height: (geometry.size.height / 4))
                             .foregroundStyle(.white)
-                            .background(Color.random())
+                            .background(Color.red.opacity(0.75))
                             .containerShape(.rect(cornerRadius: 24))
                         }
                     }
@@ -46,6 +56,9 @@ struct SetupScreenView: View {
                 Spacer()
             }
             .background(Color.black)
+            .task {
+                await connectionViewModel.checkInternet()
+            }
         }
     }
 }
