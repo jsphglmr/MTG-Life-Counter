@@ -20,7 +20,7 @@ class ConnectionViewModel {
             return
         }
         
-        var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
 //        request.timeoutInterval = 3 // Set a short timeout for connection checks
         
         do {

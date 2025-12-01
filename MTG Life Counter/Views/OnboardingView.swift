@@ -29,11 +29,12 @@ struct OnboardingView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Text("A battery conscious life counter to simplify your real life Magic: The Gathering games!")
+                        .multilineTextAlignment(.center)
                         .font(.title2)
                 }
                 .foregroundStyle(Color.white)
                 .padding()
-                
+                Spacer()
                 VStack(alignment: .center, spacing: 25) {
                     Button {
                         router.navigateToSetupView()
@@ -49,6 +50,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.white)
                 .background(LinearGradient(colors: [.white, .red, .red, .red, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .containerShape(.rect(cornerRadius: 24))
+                Spacer()
             }
         }
         .background(Color.black)
