@@ -35,9 +35,3 @@ class DeckListViewModel {
         }
     }
 }
-
-struct Deck: Identifiable {
-    let id: UUID
-    let commander: String
-    let bracket: Int
-}
