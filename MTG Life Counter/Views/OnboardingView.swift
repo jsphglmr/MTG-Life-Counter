@@ -26,9 +26,11 @@ struct OnboardingView: View {
                 .foregroundStyle(.white)
                 VStack(alignment: .center) {
                     Text("MTG Commander LT")
+                        .monospaced()
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Text("A battery conscious life counter to simplify your real life Magic: The Gathering games!")
+                        .monospaced()
                         .multilineTextAlignment(.center)
                         .font(.title2)
                 }
@@ -40,6 +42,7 @@ struct OnboardingView: View {
                         router.navigateToSetupView()
                     } label: {
                         Text("Continue")
+                            .monospaced()
                             .font(.title)
                             .fontWeight(.bold)
                     }

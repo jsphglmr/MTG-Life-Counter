@@ -19,14 +19,13 @@ struct SetupScreenView: View {
         
         GeometryReader { geometry in
             VStack {
-                if connectionViewModel.isConnected {
+                if !connectionViewModel.isConnected {
                     Text("Warning: No internet connection!")
                         .foregroundStyle(Color.yellow)
-                        .font(.title2)
+                        .font(.callout)
                 } else {
                     Text("")
-                        .font(.headline)
-                        .padding(.top, 10)
+                        .padding(.top, 8) // to keep spacing kind of there
                 }
                 Spacer()
                 Text("How many players?")
@@ -55,6 +54,7 @@ struct SetupScreenView: View {
                 }
                 Spacer()
             }
+            .monospaced()
             .background(Color.black)
             .task {
                 await connectionViewModel.checkInternet()

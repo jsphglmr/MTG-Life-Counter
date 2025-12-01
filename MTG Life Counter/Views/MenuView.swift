@@ -95,6 +95,7 @@ struct MenuView: View {
                 Text("This will end the current game and return to the main menu. Are you sure you want to end the game?")
             }
         }
+        .monospaced()
     }
     
     private func resetDice() {

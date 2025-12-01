@@ -17,8 +17,11 @@ struct PlayerHealthView: View {
     }()
     
     var body: some View {
-        // implement dead view later
-        aliveView
+        if player.isDead {
+            DeadView(player: player)
+        } else {
+            aliveView
+        }
     }
     
     private var aliveView: some View {
@@ -57,10 +60,24 @@ struct PlayerHealthView: View {
                 .contentShape(Rectangle())
                 .buttonRepeatBehavior(.enabled)
             }
-//            .background(Color.red.opacity(0.5))
-
+            if player.health <= 0 {
+                Button("dead?") {
+                    player.isDead = true
+                }
+                .font(.system(size: 16, weight: .light, design: .monospaced))
+                .fontWeight(.bold)
+                .foregroundColor(.red)
+                .padding(.horizontal, 20)
+                .padding(.vertical,4)
+                .background(Color.red.opacity(0.2))
+                .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.red, lineWidth: 2)
+                )
+                .position(x: geometry.size.width / 2, y: geometry.size.height/2 + 50)
+            }
         }
-//        .frame(height: 200)
         .foregroundStyle(.white)
     }
 }
